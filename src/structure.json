@@ -1,46 +1,48 @@
-{
-  "name": "structure",
-  "type": "directory",
-  "children": [
-    {
-      "name": "Nanotextilie",
-      "type": "directory",
-      "children": [
-        {
-          "name": "neco.md",
-          "type": "file"
-        }
-      ]
-    },
-    {
-      "name": "Neco3",
-      "type": "directory",
-      "children": [
-        {
-          "name": "neco2.md",
-          "type": "file"
-        }
-      ]
-    },
-    {
-      "name": "Neco89",
-      "type": "directory",
-      "children": [
-        {
-          "name": "Neco888",
-          "type": "directory",
-          "children": [
-            {
-              "name": "asd.md",
-              "type": "file"
-            }
-          ]
-        },
-        {
-          "name": "yes.md",
-          "type": "file"
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "name": "root",
+    "type": "directory",
+    "children": [
+      {
+        "name": "Nanotextilie",
+        "type": "directory",
+        "children": [
+          {
+            "name": "neco.json",
+            "type": "file"
+          }
+        ]
+      },
+      {
+        "name": "Neco3",
+        "type": "directory",
+        "children": [
+          {
+            "name": "neco2.json",
+            "type": "file"
+          }
+        ]
+      },
+      {
+        "name": "Neco89",
+        "type": "directory",
+        "children": [
+          {
+            "name": "Neco888",
+            "type": "directory",
+            "children": [
+              {
+                "name": "asd.json",
+                "type": "file"
+              }
+            ]
+          },
+          {
+            "name": "yes.json",
+            "type": "file"
+          }
+        ]
+      }
+    ]
+  }
+]
