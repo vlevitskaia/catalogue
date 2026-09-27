@@ -1,11 +1,30 @@
 {
-  "title": "Nanotextilie typ A",
-  "blocks": [
-    { "type": "paragraph", "content": "Popis tohoto materiálu..." },
-    { "type": "image", "src": "/images/ukazka.jpg", "alt": "Ukázka" }
-  ],
+  "title": "Revoluční nanotextilie",
+  "mainImage": "/images/image.jpg",
   "actions": [
-    { "id": "objednat", "label": "Objednat vzorek", "color": "blue" },
-    { "id": "stahnout_pdf", "label": "Stáhnout PDF specifikaci", "color": "gray" }
+    {
+      "id": "action1",
+      "label": "Detail",
+      "type": "img",
+      "content": "/images/ukazka.jpg",
+      "icon": "photo",
+      "color": "blue"
+    },
+    {
+      "id": "action2",
+      "label": "Specifikace",
+      "type": "text",
+      "content": "Tento materiál je extrémně odolný...",
+      "icon": "text",
+      "color": "teal"
+    },
+    {
+      "id": "action3",
+      "label": "Ukázka",
+      "type": "video",
+      "content": "/videos/ukazka.mp4",
+      "icon": "video",
+      "color": "red"
+    }
   ]
 }
