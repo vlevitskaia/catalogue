@@ -25,6 +25,14 @@
       "content": "/videos/ukazka.mp4",
       "icon": "video",
       "color": "red"
+    },
+    {
+      "id": "action4",
+      "label": "Test",
+      "type": "text",
+      "content": "Context",
+      "icon": "text",
+      "color": "magenta"
     }
   ]
 }
