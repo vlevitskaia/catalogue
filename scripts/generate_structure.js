@@ -24,8 +24,8 @@ const targetDir = path.join(process.cwd(), 'public', 'structure');
 if (fs.existsSync(targetDir)) {
   const tree = getDirTree(targetDir);
   const outputPath = path.join(process.cwd(), 'src', 'structure.json');
-  fs.writeFileSync(outputPath, JSON.stringify(tree, null, 2), 'utf-8');
-  console.log('Soubor structure.json byl úspěšně vygenerován!');
+  fs.writeFileSync(outputPath, JSON.stringify(tree.children, null, 2), 'utf-8');
+  console.log('File structure.json was successfully generated!');
 } else {
-  console.log('Složka public/structure neexistuje.');
+  console.log("Folder public/structure doesn't exist.");
 }

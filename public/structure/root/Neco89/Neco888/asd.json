@@ -1,0 +1,11 @@
+{
+  "title": "Nanotextilie typ A",
+  "blocks": [
+    { "type": "paragraph", "content": "Popis tohoto materiálu..." },
+    { "type": "image", "src": "/images/ukazka.jpg", "alt": "Ukázka" }
+  ],
+  "actions": [
+    { "id": "objednat", "label": "Objednat vzorek", "color": "blue" },
+    { "id": "stahnout_pdf", "label": "Stáhnout PDF specifikaci", "color": "gray" }
+  ]
+}
