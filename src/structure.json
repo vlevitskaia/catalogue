@@ -21,6 +21,26 @@
           "type": "file"
         }
       ]
+    },
+    {
+      "name": "Neco89",
+      "type": "directory",
+      "children": [
+        {
+          "name": "Neco888",
+          "type": "directory",
+          "children": [
+            {
+              "name": "asd.md",
+              "type": "file"
+            }
+          ]
+        },
+        {
+          "name": "yes.md",
+          "type": "file"
+        }
+      ]
     }
   ]
 }
