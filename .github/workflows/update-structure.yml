@@ -1,0 +1,29 @@
+name: Generate Structure JSON
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'public/structure/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Generate structure.json
+        run: node scripts/generate-structure.js
+        
+      - name: Commit and push if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Auto-generate structure.json [skip ci]"
+          file_pattern: public/structure.json

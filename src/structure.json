@@ -1,0 +1,26 @@
+{
+  "name": "structure",
+  "type": "directory",
+  "children": [
+    {
+      "name": "Nanotextilie",
+      "type": "directory",
+      "children": [
+        {
+          "name": "neco.md",
+          "type": "file"
+        }
+      ]
+    },
+    {
+      "name": "Neco3",
+      "type": "directory",
+      "children": [
+        {
+          "name": "neco2.md",
+          "type": "file"
+        }
+      ]
+    }
+  ]
+}
