@@ -87,7 +87,10 @@ export default function App() {
             >
               <Title order={6} mb="xs" c="dimmed">STRUKTURA SLOŽEK</Title>
               
-              <TreeCanvas onNodeClick={(id, type) => setSelectedNode({ id, type })} />
+              <TreeCanvas 
+                onNodeClick={(id, type) => setSelectedNode({ id, type })} 
+                selectedNodeId={selectedNode?.id}
+              />
               
               <div
                 onMouseDown={() => setIsResizing(true)}

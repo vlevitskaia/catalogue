@@ -5,11 +5,17 @@ import parseTree from '../utils/parseTree';
 
 interface TreeCanvasProps {
   onNodeClick: (id: string, type: 'file' | 'directory') => void;
+  selectedNodeId?: string;
 }
 
-export default function TreeCanvas({ onNodeClick }: TreeCanvasProps) {
+export default function TreeCanvas({ onNodeClick, selectedNodeId }: TreeCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const cyRef = useRef<any>(null);
+  const onNodeClickRef = useRef(onNodeClick);
+
+  useEffect(() => {
+    onNodeClickRef.current = onNodeClick;
+  }, [onNodeClick]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -26,37 +32,52 @@ export default function TreeCanvas({ onNodeClick }: TreeCanvasProps) {
           selector: 'node',
           style: {
             'label': 'data(label)',
-            'color': '#1c7ed6',
             'font-size': '13px',
-            'font-weight': 'normal',
+            'font-weight': 'bold',
             'text-valign': 'center',
             'text-halign': 'center',
-            'background-opacity': 1,
             'shape': 'rectangle',
             'width': 'label' as any,
             'height': 'label' as any,
-            'padding': '15px',
+            'padding': '12px',
             'text-wrap': 'wrap',
             'text-max-width': '150px' as any
           }
         },
         {
-          selector: 'node[type = "directory"]',
+          selector: 'node[type = "directory"][!hasInit]',
           style: {
-            'background-color': '#d0ebff'
+            'background-color': '#f8f9fa',
+            'color': '#adb5bd',
+            'border-width': 2,
+            'border-color': '#dee2e6',
+            'border-style': 'dashed',
+            'events': 'no'
           }
         },
         {
-          selector: 'node[type = "directory"][!hasInit]',
+          selector: 'node[type = "directory"][?hasInit]',
           style: {
-            'events': 'no'
+            'background-color': '#339af0',
+            'color': '#ffffff',
+            'border-width': 0
           }
         },
         {
           selector: 'node[type = "file"]',
           style: {
-            'background-color': '#f1f3f5',
-            'color': '#495057'
+            'background-color': '#e7f5ff',
+            'color': '#1864ab',
+            'border-width': 1,
+            'border-color': '#a5d8ff'
+          }
+        },
+        {
+          selector: '.selected',
+          style: {
+            'border-width': 3,
+            'border-color': '#ff922b',
+            'border-style': 'solid'
           }
         },
         {
@@ -66,7 +87,9 @@ export default function TreeCanvas({ onNodeClick }: TreeCanvasProps) {
             'line-color': '#ced4da',
             'target-arrow-color': '#ced4da',
             'target-arrow-shape': 'triangle',
-            'curve-style': 'straight',
+            'curve-style': 'taxi',
+            'taxi-direction': 'horizontal',
+            'taxi-turn': '20px' as any,
             'events': 'no'
           }
         }
@@ -75,15 +98,18 @@ export default function TreeCanvas({ onNodeClick }: TreeCanvasProps) {
         name: 'breadthfirst',
         directed: true,
         padding: 20,
-        spacingFactor: 0.85,
+        spacingFactor: 1.1,
         nodeDimensionsIncludeLabels: true,
-        avoidOverlap: true
+        avoidOverlap: true,
+        transform: (_, position) => {
+          return { x: position.y, y: position.x };
+        }
       }
     });
 
     cy.on('tap', 'node', (evt) => {
       const node = evt.target;
-      onNodeClick(node.id(), node.data('type'));
+      onNodeClickRef.current(node.id(), node.data('type'));
     });
 
     cyRef.current = cy;
@@ -105,7 +131,21 @@ export default function TreeCanvas({ onNodeClick }: TreeCanvasProps) {
       clearTimeout(resizeTimeout);
       cy.destroy();
     };
-  }, [onNodeClick]);
+  }, []);
+
+  useEffect(() => {
+    if (!cyRef.current) return;
+    const cy = cyRef.current;
+    
+    cy.elements().removeClass('selected');
+    
+    if (selectedNodeId) {
+      const node = cy.getElementById(selectedNodeId);
+      if (node.length > 0) {
+        node.addClass('selected');
+      }
+    }
+  }, [selectedNodeId]);
 
   return (
     <div 
