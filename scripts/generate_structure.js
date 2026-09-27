@@ -3,11 +3,19 @@ import path from 'path';
 
 function getDirTree(dirPath) {
   const name = path.basename(dirPath);
-  const item = { name, type: 'directory', children: [] };
+  const item = { name, type: 'directory', children: [], hasInit: false };
   
   const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+  
   for (const entry of entries) {
-    if (entry.name.startsWith('.')) continue;
+    if (entry.name === '__init__.json') {
+      item.hasInit = true;
+      break;
+    }
+  }
+  
+  for (const entry of entries) {
+    if (entry.name.startsWith('.') || entry.name === '__init__.json') continue;
     
     const fullPath = path.join(dirPath, entry.name);
     if (entry.isDirectory()) {

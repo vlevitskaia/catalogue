@@ -22,7 +22,13 @@ export default function ContentRenderer({ data }: ContentRendererProps) {
           <Title order={1} mb="md">{data.title}</Title>
         )}
 
-        <Box style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+        {data.description && (
+          <Text mb="md" style={{ overflowWrap: 'break-word', lineHeight: 1.6, flexShrink: 0 }}>
+            {data.description}
+          </Text>
+        )}
+
+        <Box style={{ flex: 1, position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
           {data.mainImage && (
             <Image
               src={import.meta.env.BASE_URL + data.mainImage.replace(/^\//, '')}

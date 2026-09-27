@@ -8,7 +8,7 @@ export default function App() {
   const [opened, { toggle }] = useDisclosure(true);
   const [navWidth, setNavWidth] = useState(300);
   const [isResizing, setIsResizing] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<string | null>(null);
+  const [selectedNode, setSelectedNode] = useState<{ id: string; type: 'file' | 'directory' } | null>(null);
   const [fileData, setFileData] = useState<any>(null);
   const [error, setError] = useState<boolean>(false);
 
@@ -37,7 +37,7 @@ export default function App() {
   }, [isResizing]);
 
   useEffect(() => {
-    if (!selectedFile) return;
+    if (!selectedNode) return;
 
     setError(false);
     setFileData(null);
@@ -46,7 +46,11 @@ export default function App() {
       ? import.meta.env.BASE_URL 
       : `${import.meta.env.BASE_URL}/`;
       
-    const fetchUrl = `${baseUrl}structure/${selectedFile}`;
+    const path = selectedNode.type === 'directory' 
+      ? `${selectedNode.id}/__init__.json` 
+      : selectedNode.id;
+
+    const fetchUrl = `${baseUrl}structure/${path}`;
 
     fetch(fetchUrl)
       .then((res) => {
@@ -55,7 +59,7 @@ export default function App() {
       })
       .then((data) => setFileData(data))
       .catch(() => setError(true));
-  }, [selectedFile]);
+  }, [selectedNode]);
 
   return (
     <AppShell header={{ height: 60 }} padding={0}>
@@ -83,7 +87,7 @@ export default function App() {
             >
               <Title order={6} mb="xs" c="dimmed">STRUKTURA SLOŽEK</Title>
               
-              <TreeCanvas onNodeClick={setSelectedFile} />
+              <TreeCanvas onNodeClick={(id, type) => setSelectedNode({ id, type })} />
               
               <div
                 onMouseDown={() => setIsResizing(true)}
@@ -121,7 +125,7 @@ export default function App() {
             ) : (
               <Box style={{ flex: 1 }}>
                 <Title order={1}>Vítej v aplikaci!</Title>
-                <Text c="dimmed" mt="sm">Vyber soubor ve stromové struktuře vlevo pro zobrazení obsahu.</Text>
+                <Text c="dimmed" mt="sm">Vyber soubor nebo složku ve stromové struktuře vlevo pro zobrazení obsahu.</Text>
               </Box>
             )}
           </Box>

@@ -4,7 +4,7 @@ import structureData from '../structure.json';
 import parseTree from '../utils/parseTree';
 
 interface TreeCanvasProps {
-  onNodeClick: (id: string) => void;
+  onNodeClick: (id: string, type: 'file' | 'directory') => void;
 }
 
 export default function TreeCanvas({ onNodeClick }: TreeCanvasProps) {
@@ -43,7 +43,12 @@ export default function TreeCanvas({ onNodeClick }: TreeCanvasProps) {
         {
           selector: 'node[type = "directory"]',
           style: {
-            'background-color': '#d0ebff',
+            'background-color': '#d0ebff'
+          }
+        },
+        {
+          selector: 'node[type = "directory"][!hasInit]',
+          style: {
             'events': 'no'
           }
         },
@@ -76,8 +81,9 @@ export default function TreeCanvas({ onNodeClick }: TreeCanvasProps) {
       }
     });
 
-    cy.on('tap', 'node[type = "file"]', (evt) => {
-      onNodeClick(evt.target.id());
+    cy.on('tap', 'node', (evt) => {
+      const node = evt.target;
+      onNodeClick(node.id(), node.data('type'));
     });
 
     cyRef.current = cy;

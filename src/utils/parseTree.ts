@@ -8,7 +8,12 @@ export default function parseTree(data: any, parentId: string | null = null, ele
   const label = data.type === 'file' ? data.name.replace(/\.[^/.]+$/, "") : data.name;
   
   elements.push({
-    data: { id, label, type: data.type }
+    data: { 
+      id, 
+      label, 
+      type: data.type,
+      hasInit: data.hasInit 
+    }
   });
 
   if (parentId) {
